@@ -5789,9 +5789,11 @@ function append_files_to_list(path, files) {
       if (item.mimeType == "audio/flac" || item.mimeType == "audio/x-flac" || item.mimeType == "audio/aac" || item.mimeType == "audio/mid" || item.mimeType == "audio/mpeg" || item.mimeType == "audio/wav"){
         file_icon = "music_note";
       } else if (item.mimeType == "video/x-msvideo" || item.mimeType == "video/x-flv" || item.mimeType == "video/3gpp" || item.mimeType == "video/3gpp2" || item.mimeType == "video/mp4" || item.mimeType == "video/quicktime" || item.mimeType == "video/x-ms-wmv" || item.mimeType == "video/mpeg" || item.mimeType == "video/x-matroska"){
-        file_icon = "videocam";
+        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M18,4L20,8H17L15,4H13L15,8H12L10,4H8L10,8H7L5,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V4H18Z" /></svg>';
       } else if (item.mimeType == "image/jpeg" || item.mimeType == "image/png" || item.mimeType == "image/webp" || item.mimeType == "image/gif" || item.mimeType == "image/bmp" || item.mimeType == "image/x-bmp"){
         file_icon = "image";
+      } else if (item.mimeType == "text/plain" || item.mimeType == "text/html" || item.mimeType == "text/css" || item.mimeType == "text/csv" || item.mimeType == "text/javascript" || item.mimeType == "text/xml"){
+        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M14,17H7V15H14M17,13H7V11H17M17,9H7V7H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" /></svg>';
       } else {
         file_icon = "insert_drive_file";
       }
