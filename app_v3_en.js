@@ -6275,7 +6275,7 @@ function file_image(path, name) {
     <br>
     <div id="imgWrap">
         ${targetText}
-	    <img class="mdui-img-fluid" src="${url}"/>
+	    <img class="mdui-img-fluid mdui-center" src="${url}"/>
     </div>
     <div class="mdui-typo">
       <h4 style="text-align: center;">${fname}</h4>
