@@ -5781,7 +5781,7 @@ function append_files_to_list(path, files) {
 	            </a>
 	        </li>`;
     } else {
-      var p = path + item.name;
+      var p = path + encodeURIComponent(item.name);
       const filepath = path + encodeURIComponent(item.name);
       var c = "file";
       var file_icon;
