@@ -5784,6 +5784,16 @@ function append_files_to_list(path, files) {
       var p = path + item.name;
       const filepath = path + encodeURIComponent(item.name);
       var c = "file";
+      var file_icon;
+      if (item.mimeType == "audio/flac" || item.mimeType == "audio/x-flac" || item.mimeType == "audio/aac" || item.mimeType == "audio/mid" || item.mimeType == "audio/mpeg" || item.mimeType == "audio/wav"){
+        file_icon = "music_note";
+      } else if (item.mimeType == "video/x-msvideo" || item.mimeType == "video/x-flv" || item.mimeType == "video/3gpp" || item.mimeType == "video/3gpp2" || item.mimeType == "video/mp4" || item.mimeType == "video/quicktime" || item.mimeType == "video/x-ms-wmv" || item.mimeType == "video/mpeg" || item.mimeType == "video/x-matroska"){
+        file_icon = "videocam";
+      } else if (item.mimeType == "image/jpeg" || item.mimeType == "image/png" || item.mimeType == "image/webp" || item.mimeType == "image/gif" || item.mimeType == "image/bmp" || item.mimeType == "image/x-bmp"){
+        file_icon = "image";
+      } else {
+        file_icon = "insert_drive_file";
+      }
       if (is_lastpage_loaded && item.name == "README.md") {
         get_file(p, item, function (data) {
           markdown("#readme_md", data);
@@ -5806,7 +5816,7 @@ function append_files_to_list(path, files) {
       }
       html += `<li class="mdui-list-item file mdui-ripple" target="_blank"><a gd-type="${item.mimeType}" href="${p}" class="${c}">
 	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
-	          <i class="mdui-icon material-icons">insert_drive_file</i>
+	          <i class="mdui-icon material-icons">${file_icon}</i>
 	            ${item.name}
 	          </div>
 	          <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
