@@ -223,3 +223,7 @@ opacity: 1; /*结尾状态 透明度为1*/
     background-color: #1e89f2;
     color: #ffff;
 }
+
+audio:focus {
+    outline: none;
+}
