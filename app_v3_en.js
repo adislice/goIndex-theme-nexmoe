@@ -6066,10 +6066,10 @@ function file(path) {
     return file_video(path);
   }
   if ("|mp3|flac|wav|ogg|m4a|".indexOf(`|${ext}|`) >= 0) {
-    return file_audio(path);
+    return file_audio(path, name);
   }
   if ("|bmp|jpg|jpeg|png|gif|".indexOf(`|${ext}|`) >= 0) {
-    return file_image(path);
+    return file_image(path, name);
   }
   if ("pdf" === ext) return file_pdf(path);
 }
@@ -6185,14 +6185,18 @@ function file_video(path) {
     },
   });
 }
-function file_audio(path) {
+function file_audio(path, name) {
   var url = window.location.origin + path;
+  var fname = decodeURIComponent(name);
   var content = `
 <div class="mdui-container-fluid">
 	<br>
 	<audio class="mdui-center" preload controls>
 	  <source src="${url}"">
 	</audio>
+  <div class="mdui-typo">
+    <h4 style="text-align: center;">${fname}</h4>
+  </div>
 	<br>
 	<!-- ???? -->
 	<div class="mdui-textfield">
@@ -6220,8 +6224,9 @@ function file_pdf(path) {
     .css({ padding: 0 })
     .html(content);
 }
-function file_image(path) {
+function file_image(path, name) {
   var url = window.location.origin + path;
+  var fname = decodeURIComponent(name);
   const currentPathname = window.location.pathname;
   const lastIndex = currentPathname.lastIndexOf("/");
   const fatherPathname = currentPathname.slice(0, lastIndex + 1);
@@ -6270,6 +6275,9 @@ function file_image(path) {
     <div id="imgWrap">
         ${targetText}
 	    <img class="mdui-img-fluid" src="${url}"/>
+    </div>
+    <div class="mdui-typo">
+      <h4 style="text-align: center;">${fname}</h4>
     </div>
 	<br>
 	<div class="mdui-textfield">
