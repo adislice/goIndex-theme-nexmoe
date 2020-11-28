@@ -5600,12 +5600,13 @@ function nav(path) {
       arr.shift();
       for (i in arr) {
         var n = arr[i];
+        var t = decodeURIComponent(n);
         n = decodeURI(n);
         p += n + "/";
         if (n == "") {
           break;
         }
-        html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="/${cur}:${p}">${n}</a>`;
+        html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="/${cur}:${p}">${t}</a>`;
       }
     }
   }
