@@ -5764,7 +5764,7 @@ function append_files_to_list(path, files) {
   let targetFiles = [];
   for (i in files) {
     var item = files[i];
-    var p = path + item.name + "/";
+    var p = path + encodeURIComponent(item.name) + "/";
     if (item.size == undefined) {
       item.size = "";
     }
@@ -5782,7 +5782,7 @@ function append_files_to_list(path, files) {
 	        </li>`;
     } else {
       var p = path + item.name;
-      const filepath = path + item.name;
+      const filepath = path + encodeURIComponent(item.name);
       var c = "file";
       if (is_lastpage_loaded && item.name == "README.md") {
         get_file(p, item, function (data) {
