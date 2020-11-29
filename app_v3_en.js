@@ -5585,6 +5585,7 @@ function nav(path) {
   var html = "";
   var cur = window.current_drive_order || 0;
   var names = window.drive_names;
+  var curr_title = $("title").text();
   html += `<select class="mdui-select" onchange="window.location.href=this.value" mdui-select style="overflow:visible;">`;
   names.forEach((name, idx) => {
     html += `<option value="/${idx}:/"  ${
@@ -5607,6 +5608,9 @@ function nav(path) {
           break;
         }
         html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="/${cur}:${p}">${t}</a>`;
+      }
+      if (typeof t !== "undefined"){
+      	document.title = curr_title + " - " + t;
       }
     }
   }
