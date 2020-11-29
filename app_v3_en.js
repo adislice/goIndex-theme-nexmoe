@@ -5482,7 +5482,7 @@ document.write(
   '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Genos2000/goIndex-theme-nexmoe@master/css/mdui_v2.min.css" async>'
 );
 document.write(
-  '<link rel="stylesheet" href="//raw.githack.com/adislice/goIndex-theme-nexmoe/master/css/nexmoe_v2.min.css" async>'
+  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/adislice/goIndex-theme-nexmoe@master/css/nexmoe_v2.min.css" async>'
 );
 document.write(
   '<script src="//cdn.jsdelivr.net/gh/Genos2000/goIndex-theme-nexmoe@master/js/mdui.min.js"></script async>'
