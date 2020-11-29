@@ -5479,7 +5479,7 @@
   );
 });
 document.write(
-  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Genos2000/goIndex-theme-nexmoe@master/css/mdui_v2.min.css" asyc>'
+  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Genos2000/goIndex-theme-nexmoe@master/css/mdui_v2.min.css" async>'
 );
 document.write(
   '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Genos2000/goIndex-theme-nexmoe@master/css/nexmoe_v2.min.css" async>'
