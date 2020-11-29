@@ -6063,10 +6063,10 @@ function file(path) {
     return file_code(path);
   }
   if ("|mp4|webm|avi|".indexOf(`|${ext}|`) >= 0) {
-    return file_video(path);
+    return file_video(path, name);
   }
   if ("|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|".indexOf(`|${ext}|`) >= 0) {
-    return file_video(path);
+    return file_video(path, name);
   }
   if ("|mp3|flac|wav|ogg|m4a|".indexOf(`|${ext}|`) >= 0) {
     return file_audio(path, name);
@@ -6131,8 +6131,9 @@ function copyToClipboard(str) {
   document.execCommand("copy");
   $temp.remove();
 }
-function file_video(path) {
+function file_video(path, name) {
   const url = window.location.origin + path;
+  var fname = decodeURIComponent(name);
   let player_items = [
     {
       text: "MXPlayer(Free)",
@@ -6162,6 +6163,9 @@ function file_video(path) {
 <div class="mdui-container-fluid">
 	<br>
 	<div class="mdui-video-fluid mdui-center" id="dplayer"></div>
+	<div class="mdui-typo">
+		<h4 style="text-align: center;">${fname}</h4>
+	</div>
 	<br>${playBtn}
 	<!-- ???? -->
 	<div class="mdui-textfield">
