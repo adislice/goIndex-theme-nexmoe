@@ -5790,21 +5790,6 @@ function append_files_to_list(path, files) {
       const filepath = path + encodeURIComponent(item.name);
       var c = "file";
       var file_icon;
-      if (item.mimeType == "audio/flac" || item.mimeType == "audio/x-flac" || item.mimeType == "audio/aac" || item.mimeType == "audio/mid" || item.mimeType == "audio/mpeg" || item.mimeType == "audio/wav"){
-        file_icon = "music_note";
-      } else if (item.mimeType == "video/x-msvideo" || item.mimeType == "video/x-flv" || item.mimeType == "video/3gpp" || item.mimeType == "video/3gpp2" || item.mimeType == "video/mp4" || item.mimeType == "video/quicktime" || item.mimeType == "video/x-ms-wmv" || item.mimeType == "video/mpeg" || item.mimeType == "video/x-matroska"){
-        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M18,4L20,8H17L15,4H13L15,8H12L10,4H8L10,8H7L5,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V4H18Z" /></svg>';
-      } else if (item.mimeType == "image/jpeg" || item.mimeType == "image/png" || item.mimeType == "image/webp" || item.mimeType == "image/gif" || item.mimeType == "image/bmp" || item.mimeType == "image/x-bmp"){
-        file_icon = "image";
-      } else if (item.mimeType == "text/plain" || item.mimeType == "text/html" || item.mimeType == "text/css" || item.mimeType == "text/csv" || item.mimeType == "text/javascript" || item.mimeType == "text/xml"){
-        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M14,17H7V15H14M17,13H7V11H17M17,9H7V7H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" /></svg>';
-      } else if (item.mimeType == "application/x-rar" || item.mimeType == "application/rar" || item.mimeType == "application/vnd.rar" || item.mimeType == "application/zip" || item.mimeType == "application/x-archive" || item.mimeType == "application/x-tar" || item.mimeType == "application/gzip" || item.mimeType == "application/bzip2" || item.mimeType == "application/x-xz" || item.mimeType == "application/x-7z-compressed" || item.mimeType == "application/x-rar-compressed" || item.mimeType == "application/x-gtar"){
-        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M14,17H12V15H10V13H12V15H14M14,9H12V11H14V13H12V11H10V9H12V7H10V5H12V7H14M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" /></svg>';
-      } else if (item.mimeType == "application/pdf"){
-        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H19M10.59,10.08C10.57,10.13 10.3,11.84 8.5,14.77C8.5,14.77 5,16.58 5.83,17.94C6.5,19 8.15,17.9 9.56,15.27C9.56,15.27 11.38,14.63 13.79,14.45C13.79,14.45 17.65,16.19 18.17,14.34C18.69,12.5 15.12,12.9 14.5,13.09C14.5,13.09 12.46,11.75 12,9.89C12,9.89 13.13,5.95 11.38,6C9.63,6.05 10.29,9.12 10.59,10.08M11.4,11.13C11.43,11.13 11.87,12.33 13.29,13.58C13.29,13.58 10.96,14.04 9.9,14.5C9.9,14.5 10.9,12.75 11.4,11.13M15.32,13.84C15.9,13.69 17.64,14 17.58,14.32C17.5,14.65 15.32,13.84 15.32,13.84M8.26,15.7C7.73,16.91 6.83,17.68 6.6,17.67C6.37,17.66 7.3,16.07 8.26,15.7M11.4,8.76C11.39,8.71 11.03,6.57 11.4,6.61C11.94,6.67 11.4,8.71 11.4,8.76Z" /></svg>';
-      } else {
-        file_icon = "insert_drive_file";
-      }
       if (is_lastpage_loaded && item.name == "README.md") {
         get_file(p, item, function (data) {
           markdown("#readme_md", data);
@@ -5824,6 +5809,22 @@ function append_files_to_list(path, files) {
         targetFiles.push(filepath);
         p += "?a=view";
         c += " view";
+      }
+
+      if ("|mp4|webm|avi|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|3gp|m4v|".indexOf(`|${ext}|`) >= 0){
+        file_icon = "";
+      } else if ("|mp3|flac|wav|ogg|amr|aac|alac|".indexOf(`|${ext}|`) >= 0){
+        file_icon = "music_note";
+      } else if ("|bmp|jpg|jpeg|png|gif|tiff|webp|".indexOf(`|${ext}|`) >= 0){
+        file_icon = "image";
+      } else if ("|html|php|css|go|java|js|json|txt|sh|md|".indexOf(`|${ext}|`) >= 0){
+        file_icon = "";
+      } else if ("|pdf|".indexOf(`|${ext}|`) >= 0){
+        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H19M10.59,10.08C10.57,10.13 10.3,11.84 8.5,14.77C8.5,14.77 5,16.58 5.83,17.94C6.5,19 8.15,17.9 9.56,15.27C9.56,15.27 11.38,14.63 13.79,14.45C13.79,14.45 17.65,16.19 18.17,14.34C18.69,12.5 15.12,12.9 14.5,13.09C14.5,13.09 12.46,11.75 12,9.89C12,9.89 13.13,5.95 11.38,6C9.63,6.05 10.29,9.12 10.59,10.08M11.4,11.13C11.43,11.13 11.87,12.33 13.29,13.58C13.29,13.58 10.96,14.04 9.9,14.5C9.9,14.5 10.9,12.75 11.4,11.13M15.32,13.84C15.9,13.69 17.64,14 17.58,14.32C17.5,14.65 15.32,13.84 15.32,13.84M8.26,15.7C7.73,16.91 6.83,17.68 6.6,17.67C6.37,17.66 7.3,16.07 8.26,15.7M11.4,8.76C11.39,8.71 11.03,6.57 11.4,6.61C11.94,6.67 11.4,8.71 11.4,8.76Z" /></svg>';
+      } else if ("|rar|zip|tar|7z|xz|gz|bzip2|bzip|".indexOf(`|${ext}|`) >= 0){
+        file_icon = '<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M14,17H12V15H10V13H12V15H14M14,9H12V11H14V13H12V11H10V9H12V7H10V5H12V7H14M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z" /></svg>';
+      } else {
+        file_icon = "insert_drive_file";
       }
       html += `<li class="mdui-list-item file mdui-ripple" target="_blank"><a gd-type="${item.mimeType}" href="${p}" class="${c}">
 	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
