@@ -6245,7 +6245,7 @@ function file_audio(path, name) {
         }
         var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
         album_art = base64;
-        document.getElementById('album-art').innerHTML = '<img class="mdui-center" src="${album_art}" style="width:300px;display:${album_art_display};"></img>';
+        document.getElementById('album-art').innerHTML = `<img class="mdui-center" src="${album_art}" style="width:300px;display:${album_art_display};"></img>`;
       } else {
         document.getElementById('album-art').innerHTML = '';
       }
