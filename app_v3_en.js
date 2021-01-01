@@ -5497,6 +5497,9 @@ document.write(
   '<script src="//cdn.jsdelivr.net/gh/Genos2000/goIndex-theme-nexmoe@master/js/markdown-it.min.js"></script async>'
 );
 document.write(
+  '<script src="//cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.3/jsmediatags.min.js"></script async>'
+);
+document.write(
   "<style>.mdui-appbar .mdui-toolbar{height:56px;font-size:1pc}.mdui-toolbar>i{opacity:.5}.mdui-toolbar>i{padding:0}.mdui-toolbar>a:hover,a.active,a.mdui-typo-headline{opacity:1}.mdui-container{max-width:980px}.mdui-list-item{transition:none}.mdui-list>.th{background-color:initial}.mdui-list-item>a{width:100%;line-height:3pc}.mdui-list-item{margin:2px 0;padding:0}.mdui-toolbar>a:last-child{opacity:1}@media screen and (max-width:980px){.mdui-list-item .mdui-text-right{display:none}.mdui-container{width:100%!important;margin:0}}</style>"
 );
 if (UI.theme == "material-dark") {
@@ -6203,14 +6206,85 @@ function file_video(path, name) {
 }
 function file_audio(path, name) {
   var url = window.location.origin + path;
+  var jsmediatags = window.jsmediatags;
   var fname = decodeURIComponent(name);
+  var title = "";
+  var artist = "";
+  var album = "";
+  var album_art = "";
+  jsmediatags.read(url, {
+    onSuccess: function(tag) {
+      console.log(tag);
+      var tags = tag.tags; 
+      title = tags.title;
+      console.log(title);
+      artist = tags.artist;
+      console.log(artist);
+      album = tags.album;
+      console.log(album);
+      var image = tags.picture;
+      if (image) {
+        var base64String = "";
+        for (var i = 0; i < image.data.length; i++) {
+          base64String += String.fromCharCode(image.data[i]);
+        }
+        var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
+        album_art = base64;
+      } else {
+        
+      }
+    },
+    onError: function(error) {
+      console.log(error);
+    }
+  });
+  if(title == undefined || title == ""){
+    title = "-";
+  }
+  if(artist == undefined || artist == ""){
+    artist = "-";
+  }
+  if(album == undefined || album == ""){
+    album = "-";
+  }
+  if(album_art == undefined || album_art == ""){
+    document.getElementById('album-art').style.display = "none";
+  } else {
+    document.getElementById('album-art').setAttribute('src',album_art);
+    document.getElementById('album-art').style.display = "block";
+  }
+  var tag_info = `
+<table style="max-width: 200px;display: block;width: 200px;margin: 0 auto;">
+  <tbody>
+    <tr>
+      <td style="width: 80px;"><b>Title :</b> </td>
+      <td>${title}</td>
+    </tr>
+    <tr>
+      <td style="width: 80px;"><b>Artist : </b></td>
+      <td>${artist}</td>
+    </tr>
+    <tr>
+      <td style="width: 80px;"><b>Album : </b></td>
+      <td>${album}</td>
+    </tr>
+  </tbody>
+</table>`;
+  
   var content = `
 <div class="mdui-container-fluid">
+    <br>
+    <div class="mdui-center">
+        <img id="album-art" class="mdui-center" src="" style="width:300px;display:none;">
+    </div>
 	<br>
 	<audio class="mdui-center" preload controls>
 	  <source src="${url}"">
 	</audio>
   <div class="mdui-typo">
+  <br>
+  ${tag_info}
+  <br>
     <h4 style="text-align: center;">${fname}</h4>
   </div>
 	<br>
