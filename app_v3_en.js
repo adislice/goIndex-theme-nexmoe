@@ -6248,11 +6248,11 @@ function file_audio(path, name) {
     album = "-";
   }
   if(album_art == undefined || album_art == ""){
-    document.getElementById('album-art').style.display = "none";
+    var album_art_display = "none";
+    album_art = "(unknown)";
   } else {
-    document.getElementById('album-art').setAttribute('src',album_art);
-    document.getElementById('album-art').style.display = "block";
-  }
+    var album_art_display = "block";
+  }  
   var tag_info = `
 <table style="max-width: 200px;display: block;width: 200px;margin: 0 auto;">
   <tbody>
@@ -6275,7 +6275,7 @@ function file_audio(path, name) {
 <div class="mdui-container-fluid">
     <br>
     <div class="mdui-center">
-        <img id="album-art" class="mdui-center" src="" style="width:300px;display:none;">
+        <img id="album-art" class="mdui-center" src="${album_art}" style="width:300px;display:${album_art_display};">
     </div>
 	<br>
 	<audio class="mdui-center" preload controls>
