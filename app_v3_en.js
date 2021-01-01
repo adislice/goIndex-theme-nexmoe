@@ -6222,6 +6222,21 @@ function file_audio(path, name) {
       console.log(artist);
       album = tags.album;
       console.log(album);
+      if(title == undefined || title == ""){
+        document.getElementById('title').textContent = "-";
+      } else {
+        document.getElementById('title').textContent = title;
+      }
+      if(artist == undefined || artist == ""){
+        document.getElementById('artist').textContent = "-";
+      } else {
+        document.getElementById('artist').textContent = artist;
+      }
+      if(album == undefined || album == ""){
+        document.getElementById('album').textContent = "-";
+      } else {
+        document.getElementById('album').textContent = album;
+      }
       var image = tags.picture;
       if (image) {
         var base64String = "";
@@ -6230,43 +6245,30 @@ function file_audio(path, name) {
         }
         var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
         album_art = base64;
+        document.getElementById('album-art').innerHTML = '<img class="mdui-center" src="${album_art}" style="width:300px;display:${album_art_display};"></img>';
       } else {
-        
+        document.getElementById('album-art').innerHTML = '';
       }
     },
     onError: function(error) {
       console.log(error);
     }
   });
-  if(title == undefined || title == ""){
-    title = "-";
-  }
-  if(artist == undefined || artist == ""){
-    artist = "-";
-  }
-  if(album == undefined || album == ""){
-    album = "-";
-  }
-  if(album_art == undefined || album_art == ""){
-    var album_art_display = "none";
-    album_art = "(unknown)";
-  } else {
-    var album_art_display = "block";
-  }  
+  
   var tag_info = `
 <table style="max-width: 200px;display: block;width: 200px;margin: 0 auto;">
   <tbody>
     <tr>
       <td style="width: 80px;"><b>Title :</b> </td>
-      <td>${title}</td>
+      <td><span id="title"></span></td>
     </tr>
     <tr>
       <td style="width: 80px;"><b>Artist : </b></td>
-      <td>${artist}</td>
+      <td><span id="artist"></span></td>
     </tr>
     <tr>
       <td style="width: 80px;"><b>Album : </b></td>
-      <td>${album}</td>
+      <td><span id="album"></span></td>
     </tr>
   </tbody>
 </table>`;
@@ -6274,8 +6276,8 @@ function file_audio(path, name) {
   var content = `
 <div class="mdui-container-fluid">
     <br>
-    <div class="mdui-center">
-        <img id="album-art" class="mdui-center" src="${album_art}" style="width:300px;display:${album_art_display};">
+    <div id="album-art" class="mdui-center">
+        
     </div>
 	<br>
 	<audio class="mdui-center" preload controls>
