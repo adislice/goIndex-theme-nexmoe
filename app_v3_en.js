@@ -6265,7 +6265,7 @@ function get_id3 (url) {
     },
     onError: function(error) {
       console.log(error);
-      $('div#tag-info').html(`<p>Failed getting song info</p><br><button onclick="get_id3(${url})">Ambil Ulang</button>`);
+      $('div#tag-info').html(`<p style="text-align:center">Failed getting song info</p><button class="mdui-center" onclick="get_id3('${url}')">Ambil Ulang</button>`);
       $('div#tag-info').slideDown();
     }
   });
@@ -6275,6 +6275,11 @@ function file_audio(path, name) {
   var url = window.location.origin + path;
   var fname = decodeURIComponent(name);
   var content = `
+<script type="text/javascript">
+$(document).ready(function() {
+    get_id3('${url}')
+});
+</script>
 <div class="mdui-container-fluid">
     <br>
     <div id="album-art" class="mdui-center" style="display: none">
@@ -6300,7 +6305,7 @@ function file_audio(path, name) {
 <a href="${url}" class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">file_download</i></a>
 	`;
   $("#content").html(content);
-  get_id3(url)
+  get_id3(`${url}`)
 }
 function file_pdf(path) {
   const url = window.location.origin + path;
