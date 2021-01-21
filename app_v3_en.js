@@ -6204,10 +6204,9 @@ function file_video(path, name) {
     },
   });
 }
-function file_audio(path, name) {
-  var url = window.location.origin + path;
+
+function get_id3 (url) {
   var jsmediatags = window.jsmediatags;
-  var fname = decodeURIComponent(name);
   var title = "";
   var artist = "";
   var album = "";
@@ -6223,60 +6222,63 @@ function file_audio(path, name) {
       album = tags.album;
       console.log(album);
       if(title == undefined || title == ""){
-        document.getElementById('title').textContent = "-";
-      } else {
-        document.getElementById('title').textContent = title;
-      }
+        title = "-";
+      } 
       if(artist == undefined || artist == ""){
-        document.getElementById('artist').textContent = "-";
-      } else {
-        document.getElementById('artist').textContent = artist;
-      }
+        artist = "-";
+      } 
       if(album == undefined || album == ""){
-        document.getElementById('album').textContent = "-";
-      } else {
-        document.getElementById('album').textContent = album;
-      }
+        album = "-";
+      } 
       var image = tags.picture;
       if (image) {
+        var tag_info = `
+<table style="max-width: 200px;display: block;width: 200px;margin: 0 auto;">
+  <tbody>
+    <tr>
+      <td style="width: 80px;"><b>Title :</b> </td>
+      <td><span id="title">${title}</span></td>
+    </tr>
+    <tr>
+      <td style="width: 80px;"><b>Artist : </b></td>
+      <td><span id="artist">${artist}</span></td>
+    </tr>
+    <tr>
+      <td style="width: 80px;"><b>Album : </b></td>
+      <td><span id="album">${album}</span></td>
+    </tr>
+  </tbody>
+</table>`;
+        $('div#tag-info').html(tag_info);
+        $('div#tag-info').show('slow');
         var base64String = "";
         for (var i = 0; i < image.data.length; i++) {
           base64String += String.fromCharCode(image.data[i]);
         }
         var base64 = "data:" + image.format + ";base64," + window.btoa(base64String);
         album_art = base64;
-        document.getElementById('album-art').innerHTML = `<img class="mdui-center" src="${album_art}" style="width:300px;"></img>`;
+        $('#album-art').html(`<img class="mdui-center" src="${album_art}" style="width:300px;"></img>`);
+        $('#album_art').show('slow');
       } else {
-        document.getElementById('album-art').innerHTML = '';
+        $('#album-art').html('');
       }
     },
     onError: function(error) {
       console.log(error);
+      $('div#tag-info').html(`<p>Failed getting song info</p><br><button onclick="get_id3(${url})">Ambil Ulang</button>`);
+      $('div#tag-info').show('slow');
     }
   });
-  
-  var tag_info = `
-<table style="max-width: 200px;display: block;width: 200px;margin: 0 auto;">
-  <tbody>
-    <tr>
-      <td style="width: 80px;"><b>Title :</b> </td>
-      <td><span id="title"></span></td>
-    </tr>
-    <tr>
-      <td style="width: 80px;"><b>Artist : </b></td>
-      <td><span id="artist"></span></td>
-    </tr>
-    <tr>
-      <td style="width: 80px;"><b>Album : </b></td>
-      <td><span id="album"></span></td>
-    </tr>
-  </tbody>
-</table>`;
-  
+}
+
+function file_audio(path, name) {
+  var url = window.location.origin + path;
+  var jsmediatags = window.jsmediatags;
+  var fname = decodeURIComponent(name);
   var content = `
 <div class="mdui-container-fluid">
     <br>
-    <div id="album-art" class="mdui-center">
+    <div id="album-art" class="mdui-center" style="display: none">
         
     </div>
 	<br>
@@ -6285,7 +6287,7 @@ function file_audio(path, name) {
 	</audio>
   <div class="mdui-typo">
   <br>
-  ${tag_info}
+  <div id="tag-info" style="display:none"></div>
   <br>
     <h4 style="text-align: center;">${fname}</h4>
   </div>
@@ -6299,6 +6301,7 @@ function file_audio(path, name) {
 <a href="${url}" class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">file_download</i></a>
 	`;
   $("#content").html(content);
+  get_id3(url)
 }
 function file_pdf(path) {
   const url = window.location.origin + path;
